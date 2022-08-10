@@ -1,24 +1,39 @@
 import { useState, useEffect } from "react";
+import  SignupOrLogin from "./components/signupOrLogin";
 import "./App.css";
-import Box from "./box";
-import Other from "./Other";
+import Box from "./components/box";
 
 function App() {
-  const [user, setUser] = useState("John");
-  const [age, setAge] = useState("33");
-  const [character, setCharacter] = useState("Goodie");
+  const [user, setUser] = useState();
+  const [myPics, setMyPics] = useState([]);
+  const [displayImages, setDisplay] = useState(false);
+
+  const fetchPics = async () => {
+    const response = await fetch("https://picsum.photos/v2/list");
+    const data = await response.json();
+    setMyPics(data);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchPics();
+  }, []);
+
   return (
     <div className="App">
-      <h1>Fred</h1>
-      <h1>George</h1>
-      <Other />
-     
-      <Box personsname={user} age={age} character={character} />
-      <input onChange={(event) => setUser(event.target.value)} />
+      <SignupOrLogin setter={setUser}/>
       <br></br>
-      <input onChange={(event) => setAge(event.target.value)} />
+      {{user} ? <h1>{user} logged in </h1>: <h1>not logged in</h1>}
       <br></br>
-      <input onChange={(event) => setCharacter(event.target.value)} />
+      <button onClick={(event) => setDisplay(!displayImages)}>
+        Click Me On
+      </button>
+      {displayImages &&
+        myPics.map((item, index) => {
+          return (
+            <Box author={item.author} image={item.download_url} key={index} />
+          );
+        })}
     </div>
   );
 }
