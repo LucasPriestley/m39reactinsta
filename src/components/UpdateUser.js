@@ -16,7 +16,7 @@ return (
             <input onChange={(event) => setPassword(event.target.value)} />
         </label>
         <br></br>  
-        
+        <br></br>
        <button type="submit">Update User</button> 
     </form>
 )

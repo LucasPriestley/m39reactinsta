@@ -29,8 +29,9 @@ export const getAllUsers = async (listUsers) => {
     });
 
     const data = await response.json();
-    listUsers(data);
-    console.log(data)
+    console.log(data.allUsers)
+    listUsers(data.allUsers);
+    
   } catch (error) {
     console.log(error)
   }

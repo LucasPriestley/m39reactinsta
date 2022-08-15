@@ -8,7 +8,7 @@ import Box from "./components/box";
 
 function App() {
   const [user, setUser] = useState();
-  const [listUsers, setListUsers] = ([])
+  const [listUsers, setListUsers] = useState(false);
   const [myPics, setMyPics] = useState([]);
   const [displayImages, setDisplay] = useState(false);
 
@@ -23,6 +23,8 @@ function App() {
     fetchPics();
   }, []);
 
+
+
   return (
     <div className="App">
       <SignupOrLogin setter={setUser} />
@@ -30,23 +32,24 @@ function App() {
       {{ user } ? <h1>{user} logged in </h1> : <h1>not logged in</h1>}
       <br></br>
       <button onClick={(event) => getAllUsers(setListUsers)}>List Users</button>
-      {getAllUsers &&
-        users.map((item, index) => {
+
+      {listUsers &&
+        listUsers.map((item, index) => {
           return (
-            <div></div>
+            <p>{item}</p>
           );
         })}
-      {/* <p>{listUsers}</p> */}
+
       <br></br>
       <button onClick={(event) => deleteUser(user)}>Delete User</button>
       <br></br>
       <br></br>
-      < UpdateUser userProp={user}/>
+      <UpdateUser userProp={user} />
       <br></br>
       <button onClick={(event) => setDisplay(!displayImages)}>
-        Click Me On
+        Click me for images
       </button>
-     
+
       {displayImages &&
         myPics.map((item, index) => {
           return (
